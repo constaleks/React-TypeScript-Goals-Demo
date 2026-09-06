@@ -1,9 +1,7 @@
-import { useState } from 'react';
+import { useState, type ChangeEvent } from 'react';
+import type { Goal as GoalType } from '../types';
 
-interface GoalProps {
-    id: string;
-    title: string;
-    description: string;
+interface GoalProps extends GoalType {
     onEdit: (id: string, title: string, description: string) => void;
     onRemove: (id: string) => void;
 }
@@ -12,6 +10,18 @@ function Goal({ id, title, description, onEdit, onRemove }: GoalProps) {
     const [isEditing, setIsEditing] = useState(false);
     const [editedTitle, setEditedTitle] = useState(title);
     const [editedDescription, setEditedDescription] = useState(description);
+
+    const handleState = () => {
+        setIsEditing(true);
+    };
+
+    const handleEdit = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        if (e.target.nodeName === 'TEXTAREA') {
+            setEditedDescription(e.target.value);
+        } else {
+            setEditedTitle(e.target.value);
+        }
+    };
 
     const handleSave = () => {
         onEdit(id, editedTitle, editedDescription);
@@ -24,11 +34,15 @@ function Goal({ id, title, description, onEdit, onRemove }: GoalProps) {
         setIsEditing(false);
     };
 
+    const handleRemove = () => {
+        onRemove(id);
+    };
+
     if (isEditing) {
         return (
             <div>
-                <input type="text" value={editedTitle} onChange={(e) => setEditedTitle(e.target.value)} />
-                <textarea value={editedDescription} onChange={(e) => setEditedDescription(e.target.value)}></textarea>
+                <input type="text" value={editedTitle} onChange={handleEdit} />
+                <textarea value={editedDescription} onChange={handleEdit}></textarea>
                 <button onClick={handleSave}>Save</button>
                 <button onClick={handleCancel}>Cancel</button>
             </div>
@@ -39,8 +53,8 @@ function Goal({ id, title, description, onEdit, onRemove }: GoalProps) {
         <div>
             <h2>{title}</h2>
             <p>{description}</p>
-            <button onClick={() => setIsEditing(true)}>Edit</button>
-            <button onClick={() => onRemove(id)}>Remove</button>
+            <button onClick={handleState}>Edit</button>
+            <button onClick={handleRemove}>Remove</button>
         </div>
     );
 }

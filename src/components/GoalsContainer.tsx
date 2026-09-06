@@ -15,18 +15,3 @@ function GoalsContainer() {
 }
 
 export default GoalsContainer;
-
-/*
-
-
-        removeTodo: (id) => {
-            setList((prevList) => prevList.filter((item) => item.id !== id));
-        },
-        toggleTodo: (id) => {
-            setList((prevList) => prevList.map((item) => (item.id === id ? { ...item, completed: !item.completed } : item)));
-        },
-        editTodo: (id, newValue) => {
-            setList((prevList) => prevList.map((item) => (item.id === id ? { ...item, todo: newValue } : item)));
-        },
-
-*/
