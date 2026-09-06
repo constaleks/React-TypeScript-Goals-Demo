@@ -9,7 +9,7 @@ interface GoalsListProps {
 
 function GoalsList({ goals, editGoal, removeGoal }: GoalsListProps) {
     return (
-        <div>
+        <div className="space-y-3 max-h-[50vh] overflow-y-auto">
             {goals.map((goal) => (
                 <Goal
                     key={goal.id}
