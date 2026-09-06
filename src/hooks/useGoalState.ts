@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import useLocalStorageState from './useLocalStorageState';
 import type { Goal } from '../types';
 
 function useGoalState() {
-    const [goals, setGoals] = useState<Goal[]>([]);
+    const [goals, setGoals] = useLocalStorageState<Goal[]>('goals', []);
 
     return {
         goals,
