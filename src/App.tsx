@@ -1,7 +1,9 @@
+import GoalsContainer from './components/GoalsContainer';
+
 function App() {
     return (
         <div>
-            <h1>Hello world!</h1>
+            <GoalsContainer />
         </div>
     );
 }
