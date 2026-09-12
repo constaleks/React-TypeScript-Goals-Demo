@@ -7,7 +7,9 @@ function useGoalState() {
     return {
         goals,
         addGoal: (title: string, description: string) => {
-            setGoals((prevGoals) => [...prevGoals, { id: crypto.randomUUID(), title, description }]);
+            setGoals((prevGoals) =>
+                prevGoals.length >= 4 ? prevGoals : [...prevGoals, { id: crypto.randomUUID(), title, description }],
+            );
         },
         editGoal: (id: string, newTitle: string, newDescription: string) => {
             setGoals((prevGoals) =>

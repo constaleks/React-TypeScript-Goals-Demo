@@ -1,5 +1,6 @@
 import type { Goal as GoalType } from '../types';
 import Goal from './Goal';
+import InfoBox from './InfoBox';
 
 interface GoalsListProps {
     goals: GoalType[];
@@ -8,19 +9,26 @@ interface GoalsListProps {
 }
 
 function GoalsList({ goals, editGoal, removeGoal }: GoalsListProps) {
+    if (goals.length === 0) {
+        return <InfoBox mode="hint">You have no added goals yet.</InfoBox>;
+    }
+
     return (
-        <div className="space-y-3 max-h-[50vh] overflow-y-auto">
-            {goals.map((goal) => (
-                <Goal
-                    key={goal.id}
-                    id={goal.id}
-                    title={goal.title}
-                    description={goal.description}
-                    onEdit={editGoal}
-                    onRemove={removeGoal}
-                />
-            ))}
-        </div>
+        <>
+            {goals.length >= 4 ? <InfoBox mode="warning">You have added maximum amount of goals.</InfoBox> : ''}
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {goals.map((goal) => (
+                    <Goal
+                        key={goal.id}
+                        id={goal.id}
+                        title={goal.title}
+                        description={goal.description}
+                        onEdit={editGoal}
+                        onRemove={removeGoal}
+                    />
+                ))}
+            </div>
+        </>
     );
 }
 
